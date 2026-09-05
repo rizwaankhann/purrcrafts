@@ -1,0 +1,108 @@
+/* PurrCrafts Custom Styles & Aesthetic Utilities */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&display=swap');
+
+:root {
+  --primary-font: 'Plus Jakarta Sans', sans-serif;
+  --display-font: 'Playfair Display', serif;
+  --cute-font: 'Fredoka', cursive, sans-serif;
+}
+
+body {
+  font-family: var(--primary-font);
+  background-color: #FAF8F5;
+  color: #2D2926;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--display-font);
+}
+
+.font-cute {
+  font-family: var(--cute-font);
+}
+
+/* Hide scrollbars while retaining touch swipe ability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom aesthetic glassmorphism */
+.glass-header {
+  background: rgba(250, 248, 245, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Shimmer and soft glow */
+.soft-glow-rose {
+  box-shadow: 0 10px 30px -5px rgba(244, 114, 182, 0.2);
+}
+
+.soft-glow-amber {
+  box-shadow: 0 10px 30px -5px rgba(245, 158, 11, 0.15);
+}
+
+/* Smooth image scale */
+.product-image-container img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-image-container:hover img {
+  transform: scale(1.05);
+}
+
+/* Custom bottom sheet animation on mobile */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Floating animation for badge / mascot */
+@keyframes gentleBob {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(1deg);
+  }
+}
+
+.animate-gentle-bob {
+  animation: gentleBob 3s ease-in-out infinite;
+}
+
+/* Pulse badge ring */
+@keyframes ringPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 114, 182, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(244, 114, 182, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 114, 182, 0);
+  }
+}
+
+.pulse-badge {
+  animation: ringPulse 2s infinite;
+}

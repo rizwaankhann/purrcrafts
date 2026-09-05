@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PurrCrafts 🐾 | Handmade Pipecleaner Flowers & Cute Miniatures</title>
+  <meta name="description" content="Handmade everlasting chenille pipe cleaner flowers, whimsical bouquets, and cute miniature desk companions crafted with love by PurrCrafts.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%220%22%20100%22%20100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+
+  <!-- Google Fonts & Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: {
+              50: '#FDFBF7',
+              100: '#FAF8F5',
+              200: '#F3EFEA',
+              300: '#E7DFD5',
+            },
+            terracotta: {
+              100: '#FDEEE9',
+              500: '#D97757',
+              600: '#C86443',
+            },
+            rosebud: {
+              50: '#FFF1F2',
+              100: '#FFE4E6',
+              400: '#FB7185',
+              500: '#F43F5E',
+            },
+            sage: {
+              100: '#EBF2EE',
+              500: '#5A7D69',
+              600: '#486454',
+            },
+            charcoal: {
+              800: '#2C2A29',
+              900: '#1C1B1A',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Playfair Display"', 'serif'],
+            cute: ['"Fredoka"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Product Catalog Data & App Logic -->
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-cream-100 text-charcoal-800 antialiased min-h-screen flex flex-col selection:bg-rose-200 selection:text-rose-900" x-data="boutiqueApp">
+
+  <!-- ================= TOP ANNOUNCEMENT BANNER ================= -->
+  <div class="bg-gradient-to-r from-rose-100 via-cream-200 to-amber-100 text-charcoal-800 text-xs sm:text-sm font-medium py-2 px-4 border-b border-rose-200/60">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2 mx-auto sm:mx-0">
+        <span class="inline-block animate-gentle-bob">🌸</span>
+        <span>Everlasting handcrafted blooms • Free handwritten gift card • Made with love</span>
+      </div>
+      <a href="https://www.instagram.com/purr__crafts/" target="_blank" rel="noopener noreferrer" 
+         class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:underline">
+        <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+        <span>@purr__crafts</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ================= STICKY MAIN HEADER ================= -->
+  <header class="sticky top-0 z-40 glass-header border-b border-stone-200/70 transition-all duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
+        
+        <!-- Brand / Logo -->
+        <div class="flex items-center gap-3">
+          <a href="#" class="group flex items-center gap-2.5">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-rose-400 to-amber-300 p-0.5 shadow-sm group-hover:scale-105 transition-transform duration-300 flex items-center justify-center">
+              <div class="w-full h-full bg-cream-50 rounded-[14px] flex items-center justify-center text-lg sm:text-xl">
+                🐾
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-display font-bold text-xl sm:text-2xl text-charcoal-900 tracking-tight leading-none group-hover:text-terracotta-600 transition-colors">
+                PurrCrafts
+              </span>
+              <span class="text-[10px] sm:text-xs font-medium text-stone-500 tracking-wider uppercase mt-0.5">
+                Handmade Flora & Miniatures
+              </span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Desktop Quick Navigation -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
+          <a href="#catalog" @click="selectedCategory = 'all'; isWishlistView = false;" class="hover:text-terracotta-600 transition-colors">Catalog</a>
+          <a href="#catalog" @click="selectedCategory = 'bouquets'; isWishlistView = false;" class="hover:text-terracotta-600 transition-colors">Bouquets</a>
+          <a href="#catalog" @click="selectedCategory = 'miniatures'; isWishlistView = false;" class="hover:text-terracotta-600 transition-colors">Cute Miniatures</a>
+          <a href="#about" class="hover:text-terracotta-600 transition-colors">About Maker</a>
+          <button @click="isCustomOrderOpen = true" class="text-rose-600 hover:text-rose-700 font-semibold flex items-center gap-1">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>Custom Order</span>
+          </button>
+        </nav>
+
+        <!-- Header Action Controls -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          
+          <!-- Instagram Direct Button -->
+          <a href="https://www.instagram.com/purr__crafts/" target="_blank" rel="noopener noreferrer"
+             class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-amber-500/10 border border-pink-200 text-pink-700 text-xs font-semibold hover:bg-pink-100 transition-colors">
+            <i data-lucide="instagram" class="w-3.5 h-3.5 text-pink-600"></i>
+            <span>Follow</span>
+          </a>
+
+          <!-- Favorites Pill Button -->
+          <button @click="toggleWishlistView()" 
+                  :class="isWishlistView ? 'bg-rose-500 text-white shadow-sm' : 'bg-cream-200/80 text-stone-700 hover:bg-cream-300/80'"
+                  class="relative p-2.5 rounded-full transition-all duration-200 focus:outline-none"
+                  title="Saved Favorites">
+            <i data-lucide="heart" :class="isWishlistView ? 'fill-current stroke-current' : ''" class="w-5 h-5"></i>
+            <span x-show="wishlist.length > 0" 
+                  x-text="wishlist.length" 
+                  class="absolute -top-1 -right-1 bg-rose-500 text-white font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">
+            </span>
+          </button>
+
+          <!-- Inquiry Cart Drawer Button -->
+          <button @click="isCartOpen = true" 
+                  class="relative flex items-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm shadow-sm hover:shadow transition-all duration-200 focus:outline-none">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Inquiry Bag</span>
+            <span x-show="cartCount > 0" 
+                  x-text="cartCount" 
+                  class="bg-white text-terracotta-600 font-extrabold text-[11px] px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+            </span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-cream-50 via-cream-100 to-cream-200/50 pt-8 pb-12 sm:pt-12 sm:pb-16 border-b border-stone-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-100/80 border border-rose-200 text-rose-700 text-xs font-semibold mb-4 animate-gentle-bob">
+            <span>✨ 100% Hand-Twisted Chenille Art</span>
+            <span class="w-1 h-1 rounded-full bg-rose-400"></span>
+            <span>Never Wilts</span>
+          </div>
+          
+          <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-charcoal-900 tracking-tight leading-[1.15] sm:leading-[1.15]">
+            Everlasting Blooms & <br class="hidden sm:inline">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-terracotta-500 via-rose-500 to-amber-500">
+              Cute Little Companions
+            </span>
+          </h1>
+          
+          <p class="mt-4 sm:mt-5 text-sm sm:text-base text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Crafted petal by petal with soft, fuzzy pipe cleaners. Vibrant everlasting tulip bouquets, smiling potted daisies, and adorable kitten mascots created to brighten your desk and warm your heart forever.
+          </p>
+
+          <!-- CTAs -->
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
+            <a href="#catalog" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-charcoal-900 text-white hover:bg-stone-800 text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow">
+              <span>Explore Collection</span>
+              <i data-lucide="arrow-down" class="w-4 h-4"></i>
+            </a>
+
+            <button @click="isCustomOrderOpen = true" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white border border-stone-300 text-charcoal-800 hover:border-terracotta-500 hover:text-terracotta-600 text-sm font-semibold transition-all duration-200 shadow-sm">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+              <span>Request Custom Bouquet</span>
+            </button>
+          </div>
+
+          <!-- Trust highlights row -->
+          <div class="mt-8 pt-6 border-t border-stone-200/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-rose-100 flex items-center justify-center text-rose-600 flex-shrink-0">
+                <i data-lucide="sun" class="w-4 h-4"></i>
+              </div>
+              <span class="text-xs font-semibold text-stone-700 leading-tight">Zero Watering Needed</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0">
+                <i data-lucide="gift" class="w-4 h-4"></i>
+              </div>
+              <span class="text-xs font-semibold text-stone-700 leading-tight">Gift-Wrap Included</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                <i data-lucide="palette" class="w-4 h-4"></i>
+              </div>
+              <span class="text-xs font-semibold text-stone-700 leading-tight">Custom Palettes</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+              </div>
+              <span class="text-xs font-semibold text-stone-700 leading-tight">WhatsApp Orders</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual Collage -->
+        <div class="lg:col-span-5 relative mt-4 lg:mt-0">
+          <div class="relative mx-auto max-w-sm sm:max-w-md">
+            
+            <!-- Main Featured Hero Card -->
+            <div class="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-cream-50">
+              <img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80" 
+                   alt="Handmade Pastel Tulip Bouquet" 
+                   class="w-full h-72 sm:h-96 object-cover object-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/80 via-transparent to-black/10"></div>
+              
+              <div class="absolute bottom-4 left-4 right-4 text-white">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-semibold text-white mb-1.5">
+                  <span>🌸 Hand-twisted with love</span>
+                </div>
+                <h3 class="font-display font-bold text-lg sm:text-xl">Sunset Pastel Tulip Bouquet</h3>
+                <p class="text-xs text-stone-200 mt-0.5">5 Everlasting stems • Korean floral wrap</p>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="font-bold text-base text-amber-300">₹799</span>
+                  <button @click="openQuickView(products[0])" class="px-3 py-1.5 rounded-full bg-white text-charcoal-900 text-xs font-bold hover:bg-stone-100 transition-colors">
+                    Quick View
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Badge Card: Mascot -->
+            <div class="absolute -bottom-4 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-stone-200/80 flex items-center gap-3 animate-gentle-bob">
+              <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-2xl flex-shrink-0">
+                🐾
+              </div>
+              <div>
+                <span class="block text-[11px] font-bold uppercase tracking-wider text-purple-600">Mascot Pet</span>
+                <span class="block text-xs font-semibold text-charcoal-900">Tiny Calico Kitten</span>
+                <span class="text-[10px] text-stone-500">Sculpted miniature</span>
+              </div>
+            </div>
+
+            <!-- Floating Badge Card: Instagram Link -->
+            <div class="absolute -top-3 -right-3 sm:-right-4 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-lg border border-stone-200/80 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+              <span class="text-xs font-bold text-charcoal-800">Custom orders open!</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CURATED BOUTIQUE CATALOG ================= -->
+  <main id="catalog" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
+    
+    <!-- Section Title & Meta -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="h-px w-6 bg-terracotta-500"></span>
+          <span class="text-xs font-bold tracking-widest uppercase text-terracotta-600">Curated Boutique</span>
+        </div>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-900 mt-1">
+          Explore Handcrafted Creations
+        </h2>
+      </div>
+
+      <div class="text-xs text-stone-500">
+        Showing <span class="font-bold text-charcoal-800" x-text="filteredProducts.length"></span> creations
+      </div>
+    </div>
+
+    <!-- STICKY FILTER & SEARCH BAR -->
+    <div class="sticky top-16 sm:top-20 z-30 bg-cream-100/95 backdrop-blur-md py-3 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-y border-stone-200/80 mb-6 transition-all shadow-sm">
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+        
+        <!-- Category Filter Pills (Horizontal Scrollable on Mobile) -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-xs sm:text-sm font-semibold flex-nowrap">
+          <template x-for="cat in categories" :key="cat.id">
+            <button @click="selectedCategory = cat.id; isWishlistView = false;"
+                    :class="selectedCategory === cat.id && !isWishlistView 
+                      ? 'bg-charcoal-900 text-white shadow-sm' 
+                      : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'"
+                    class="px-3.5 py-2 rounded-full whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 focus:outline-none">
+              <span x-text="cat.name"></span>
+            </button>
+          </template>
+
+          <!-- Wishlist filter button inside pills -->
+          <button @click="toggleWishlistView()"
+                  :class="isWishlistView 
+                    ? 'bg-rose-500 text-white shadow-sm' 
+                    : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'"
+                  class="px-3.5 py-2 rounded-full whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 focus:outline-none">
+            <span>💖 Favorites</span>
+            <span x-show="wishlist.length > 0" class="text-[10px] bg-white/20 px-1.5 py-0.5 rounded-full" x-text="wishlist.length"></span>
+          </button>
+        </div>
+
+        <!-- Search Bar & Sort Dropdown -->
+        <div class="flex items-center gap-2">
+          
+          <!-- Live Search Input -->
+          <div class="relative flex-grow sm:w-64">
+            <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input type="text" 
+                   x-model="searchQuery" 
+                   placeholder="Search tulips, cats, sunflowers..." 
+                   class="w-full pl-9 pr-8 py-2 bg-white border border-stone-200 rounded-full text-xs sm:text-sm text-charcoal-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500 transition-all">
+            <button x-show="searchQuery" @click="searchQuery = ''" class="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Sort Selector -->
+          <div class="relative flex-shrink-0">
+            <select x-model="sortBy" 
+                    class="appearance-none bg-white border border-stone-200 rounded-full pl-3 pr-8 py-2 text-xs font-semibold text-stone-700 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500 cursor-pointer">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="popular">Most Loved</option>
+            </select>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-stone-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PRODUCT GRID (MOBILE-FIRST 2-COLUMN) ================= -->
+    <div x-show="filteredProducts.length > 0" 
+         class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+      
+      <template x-for="product in filteredProducts" :key="product.id">
+        <div class="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden relative">
+          
+          <!-- Image Section with Touch / Hover Zoom -->
+          <div class="relative aspect-square overflow-hidden bg-stone-100 cursor-pointer product-image-container"
+               @click="openQuickView(product)">
+            <img :src="product.images[0]" 
+                 :alt="product.name" 
+                 class="w-full h-full object-cover object-center"
+                 loading="lazy"
+                 onerror="this.src='https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80'">
+
+            <!-- Badge (e.g. Bestseller, Limited) -->
+            <div class="absolute top-2.5 left-2.5">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold border backdrop-blur-md"
+                    :class="product.badgeColor"
+                    x-text="product.badge">
+              </span>
+            </div>
+
+            <!-- Wishlist Heart Button -->
+            <button @click.stop="toggleWishlist(product.id)" 
+                    class="absolute top-2.5 right-2.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-stone-600 hover:text-rose-500 shadow-sm transition-transform active:scale-90"
+                    title="Save to favorites">
+              <i data-lucide="heart" 
+                 :class="isWishlisted(product.id) ? 'fill-rose-500 stroke-rose-500 text-rose-500' : ''" 
+                 class="w-4 h-4"></i>
+            </button>
+
+            <!-- Quick View Hover Overlay Button (Desktop) -->
+            <div class="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:flex items-center justify-center p-4">
+              <span class="px-3.5 py-1.5 rounded-full bg-white/95 text-charcoal-900 font-bold text-xs shadow hover:bg-white transition-all transform translate-y-2 group-hover:translate-y-0">
+                Quick View
+              </span>
+            </div>
+          </div>
+
+          <!-- Content Details -->
+          <div class="p-3 sm:p-4 flex flex-col flex-grow">
+            
+            <!-- Category & Rating -->
+            <div class="flex items-center justify-between text-[10px] sm:text-xs text-stone-500 mb-1">
+              <span class="font-medium truncate" x-text="product.categoryName"></span>
+              <div class="flex items-center gap-1 text-amber-500 flex-shrink-0">
+                <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                <span class="font-bold text-stone-700" x-text="product.rating"></span>
+              </div>
+            </div>
+
+            <!-- Product Title -->
+            <h3 @click="openQuickView(product)" 
+                class="font-semibold text-xs sm:text-sm text-charcoal-900 line-clamp-2 cursor-pointer hover:text-terracotta-600 transition-colors leading-snug">
+              <span x-text="product.name"></span>
+            </h3>
+
+            <!-- Short Craft Info -->
+            <p class="text-[10px] sm:text-xs text-stone-500 line-clamp-1 mt-1 hidden sm:block" 
+               x-text="product.craftTime">
+            </p>
+
+            <!-- Spacer to push price & action to bottom -->
+            <div class="mt-auto pt-3">
+              
+              <!-- Pricing Row -->
+              <div class="flex items-baseline gap-1.5 mb-2.5">
+                <span class="font-display font-bold text-sm sm:text-base text-charcoal-900">
+                  ₹<span x-text="product.price.toLocaleString('en-IN')"></span>
+                </span>
+                <span x-show="product.originalPrice" 
+                      class="text-[10px] sm:text-xs text-stone-400 line-through">
+                  ₹<span x-text="product.originalPrice.toLocaleString('en-IN')"></span>
+                </span>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="grid grid-cols-1 gap-1.5">
+                <button @click="addToCart(product)" 
+                        class="w-full py-1.5 sm:py-2 px-3 rounded-xl bg-cream-200/90 hover:bg-terracotta-500 hover:text-white text-charcoal-800 text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 active:scale-95">
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                  <span>Add to Bag</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Empty State -->
+    <div x-show="filteredProducts.length === 0" 
+         class="text-center py-16 px-4 bg-white rounded-3xl border border-stone-200 my-6">
+      <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-500 mx-auto flex items-center justify-center text-3xl mb-3 animate-gentle-bob">
+        🌸
+      </div>
+      <h3 class="font-display font-bold text-xl text-charcoal-900">No creations found</h3>
+      <p class="text-sm text-stone-500 max-w-md mx-auto mt-1">
+        We couldn't find any crafts matching your current filters. Try changing your search or view all our creations.
+      </p>
+      <div class="mt-4 flex justify-center gap-2">
+        <button @click="selectedCategory = 'all'; searchQuery = ''; isWishlistView = false;" 
+                class="px-4 py-2 rounded-full bg-charcoal-900 text-white text-xs font-semibold hover:bg-stone-800 transition-colors">
+          Reset All Filters
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= "WHY PIPECLEANER FLOWERS" SECTION ================= -->
+  <section id="about" class="bg-cream-200/60 border-t border-stone-200/70 py-12 sm:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-stone-200 text-stone-700 text-xs font-semibold mb-2">
+          <span>🐾 The PurrCrafts Philosophy</span>
+        </div>
+        <h2 class="font-display text-2xl sm:text-4xl font-bold text-charcoal-900">
+          Why Chenille Pipecleaner Flora?
+        </h2>
+        <p class="text-stone-600 text-xs sm:text-sm mt-2">
+          Fresh flowers wither in days, but handcrafted pipe cleaner blooms hold memories, color, and texture forever.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Feature 1 -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col items-center text-center">
+          <div class="w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center text-rose-600 mb-4">
+            <i data-lucide="infinity" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-charcoal-900">Never-Fading Blooms</h3>
+          <p class="text-xs sm:text-sm text-stone-500 mt-2 leading-relaxed">
+            No water, no pollen sneezing, and zero decay. Your bouquets and potted companions remain as plump and vibrant as day one.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col items-center text-center">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
+            <i data-lucide="sparkles" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-charcoal-900">100% Hand-Sculpted</h3>
+          <p class="text-xs sm:text-sm text-stone-500 mt-2 leading-relaxed">
+            Every petal, stamen, leaf, and cat whisker is individually bent, twisted, and styled with surgical patience and care.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col items-center text-center">
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 mb-4">
+            <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-charcoal-900">Customized For You</h3>
+          <p class="text-xs sm:text-sm text-stone-500 mt-2 leading-relaxed">
+            Choose your recipient's favorite flower colors, include their pet as a cute miniature mascot, and add a personalized note.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= INSTAGRAM SOCIAL PROOF BANNER ================= -->
+  <section class="bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 py-10 px-4 text-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="w-12 h-12 mx-auto rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-3">
+        <i data-lucide="instagram" class="w-6 h-6"></i>
+      </div>
+      <h3 class="font-display font-bold text-2xl sm:text-3xl">
+        Follow Our Daily Studio Twists on Instagram
+      </h3>
+      <p class="text-rose-100 text-xs sm:text-sm mt-2 max-w-lg mx-auto">
+        Watch behind-the-scenes flower wrapping videos, new miniature animal reveals, and limited weekly drops.
+      </p>
+      <div class="mt-5">
+        <a href="https://www.instagram.com/purr__crafts/" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-rose-600 font-bold text-sm shadow-md hover:bg-stone-50 transition-all hover:scale-105 active:scale-95">
+          <span>Visit @purr__crafts</span>
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-charcoal-900 text-stone-400 py-12 px-4 sm:px-6 lg:px-8 text-xs">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-stone-800">
+      
+      <!-- Brand & Story -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🐾</span>
+          <span class="font-display font-bold text-lg text-white">PurrCrafts</span>
+        </div>
+        <p class="text-stone-400 leading-relaxed text-xs">
+          Handcrafted pipe cleaner floral arrangements, aesthetic desk plants, and cute miniature companions. Designed to stay vibrant forever.
+        </p>
+        <div class="flex items-center gap-3 pt-1">
+          <a href="https://www.instagram.com/purr__crafts/" target="_blank" class="w-8 h-8 rounded-full bg-stone-800 hover:bg-stone-700 flex items-center justify-center text-white transition-colors">
+            <i data-lucide="instagram" class="w-4 h-4"></i>
+          </a>
+          <button @click="checkoutViaWhatsApp()" class="w-8 h-8 rounded-full bg-stone-800 hover:bg-emerald-600 flex items-center justify-center text-white transition-colors" title="WhatsApp">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Collections -->
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider text-xs mb-3">Creations</h4>
+        <ul class="space-y-2">
+          <li><a href="#catalog" @click="selectedCategory = 'bouquets'" class="hover:text-white transition-colors">Flower Bouquets</a></li>
+          <li><a href="#catalog" @click="selectedCategory = 'pots'" class="hover:text-white transition-colors">Single Stems & Potted</a></li>
+          <li><a href="#catalog" @click="selectedCategory = 'miniatures'" class="hover:text-white transition-colors">Cute Miniatures & Keychains</a></li>
+          <li><a href="#catalog" @click="selectedCategory = 'gift_sets'" class="hover:text-white transition-colors">Gift Sets & Hampers</a></li>
+        </ul>
+      </div>
+
+      <!-- Care & Ordering Guide -->
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider text-xs mb-3">Care & Delivery</h4>
+        <ul class="space-y-2 text-stone-400">
+          <li>✨ Keep away from water & direct scorching sun</li>
+          <li>🎀 Gently reshape petals with fingertips</li>
+          <li>📦 Secure packaging with bubble & sturdy box</li>
+          <li>💌 Custom orders take 2-4 days crafting lead time</li>
+        </ul>
+      </div>
+
+      <!-- Custom Request CTA -->
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider text-xs mb-3">Bespoke Inquiry</h4>
+        <p class="text-xs text-stone-400 mb-3">
+          Have a specific flower combination or custom pet miniature in mind?
+        </p>
+        <button @click="isCustomOrderOpen = true" 
+                class="w-full py-2.5 px-4 rounded-xl bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Send Custom Request</span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between text-stone-500 text-[11px] gap-2">
+      <p>© 2026 PurrCrafts. Handcrafted with love & chenille stems.</p>
+      <p>Instagram: <a href="https://www.instagram.com/purr__crafts/" target="_blank" class="underline hover:text-white">@purr__crafts</a></p>
+    </div>
+  </footer>
+
+  <!-- ================= QUICK VIEW MODAL ================= -->
+  <div x-show="isQuickViewOpen" 
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
+       @keydown.escape.window="closeQuickView()"
+       style="display: none;">
+    
+    <div @click.away="closeQuickView()" 
+         x-show="quickViewProduct"
+         class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl border border-stone-200 transform transition-all my-6 relative">
+      
+      <!-- Close button -->
+      <button @click="closeQuickView()" 
+              class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-stone-600 hover:text-charcoal-900 flex items-center justify-center shadow-md transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        
+        <!-- Left: Image Gallery -->
+        <div class="p-4 sm:p-6 bg-cream-50 flex flex-col justify-between">
+          <div class="relative aspect-square rounded-2xl overflow-hidden shadow-sm bg-white border border-stone-200">
+            <img :src="quickViewProduct ? quickViewProduct.images[quickViewActiveImageIndex] : ''" 
+                 :alt="quickViewProduct ? quickViewProduct.name : ''" 
+                 class="w-full h-full object-cover object-center">
+            
+            <div class="absolute top-3 left-3">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border backdrop-blur-md"
+                    :class="quickViewProduct ? quickViewProduct.badgeColor : ''"
+                    x-text="quickViewProduct ? quickViewProduct.badge : ''">
+              </span>
+            </div>
+          </div>
+
+          <!-- Thumbnails switcher -->
+          <div class="flex items-center gap-2 mt-3 overflow-x-auto no-scrollbar">
+            <template x-for="(img, idx) in (quickViewProduct ? quickViewProduct.images : [])" :key="idx">
+              <button @click="quickViewActiveImageIndex = idx"
+                      :class="quickViewActiveImageIndex === idx ? 'ring-2 ring-terracotta-500' : 'opacity-70 hover:opacity-100'"
+                      class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-stone-200 transition-all">
+                <img :src="img" class="w-full h-full object-cover">
+              </button>
+            </template>
+          </div>
+        </div>
+
+        <!-- Right: Craft Details & Action Form -->
+        <div class="p-5 sm:p-7 flex flex-col max-h-[80vh] overflow-y-auto">
+          
+          <div class="flex items-center justify-between text-xs text-stone-500 mb-1">
+            <span class="font-semibold text-terracotta-600 uppercase tracking-wider text-[11px]" 
+                  x-text="quickViewProduct ? quickViewProduct.categoryName : ''"></span>
+            <div class="flex items-center gap-1 text-amber-500">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+              <span class="font-bold text-stone-800" x-text="quickViewProduct ? quickViewProduct.rating : ''"></span>
+              <span class="text-stone-400">(<span x-text="quickViewProduct ? quickViewProduct.reviewsCount : ''"></span> reviews)</span>
+            </div>
+          </div>
+
+          <h2 class="font-display font-bold text-lg sm:text-2xl text-charcoal-900 leading-tight" 
+              x-text="quickViewProduct ? quickViewProduct.name : ''"></h2>
+
+          <!-- Price -->
+          <div class="flex items-baseline gap-2 mt-2">
+            <span class="font-display font-bold text-2xl text-charcoal-900">
+              ₹<span x-text="quickViewProduct ? quickViewProduct.price.toLocaleString('en-IN') : ''"></span>
+            </span>
+            <span x-show="quickViewProduct && quickViewProduct.originalPrice" 
+                  class="text-sm text-stone-400 line-through">
+              ₹<span x-text="quickViewProduct && quickViewProduct.originalPrice ? quickViewProduct.originalPrice.toLocaleString('en-IN') : ''"></span>
+            </span>
+          </div>
+
+          <!-- Description -->
+          <p class="text-xs sm:text-sm text-stone-600 mt-3 leading-relaxed" 
+             x-text="quickViewProduct ? quickViewProduct.fullDescription : ''"></p>
+
+          <!-- Specifications Accordion/List -->
+          <div class="mt-4 pt-3 border-t border-stone-100 space-y-2 text-xs">
+            <div class="flex items-start gap-2">
+              <i data-lucide="scissors" class="w-4 h-4 text-terracotta-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="font-semibold text-stone-800">Materials: </span>
+                <span class="text-stone-500" x-text="quickViewProduct ? quickViewProduct.materials : ''"></span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2">
+              <i data-lucide="ruler" class="w-4 h-4 text-terracotta-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="font-semibold text-stone-800">Size: </span>
+                <span class="text-stone-500" x-text="quickViewProduct ? quickViewProduct.dimensions : ''"></span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2">
+              <i data-lucide="clock" class="w-4 h-4 text-terracotta-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="font-semibold text-stone-800">Crafting Time: </span>
+                <span class="text-stone-500" x-text="quickViewProduct ? quickViewProduct.craftTime : ''"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ribbon / Style Selector -->
+          <div class="mt-4 pt-3 border-t border-stone-100">
+            <label class="block text-xs font-bold text-stone-800 mb-2">
+              Select Ribbon / Wrapping Accent:
+            </label>
+            <div class="flex flex-wrap gap-2">
+              <template x-for="ribbon in (quickViewProduct ? quickViewProduct.ribbonOptions : [])" :key="ribbon">
+                <button @click="quickViewSelectedRibbon = ribbon"
+                        :class="quickViewSelectedRibbon === ribbon 
+                          ? 'bg-rose-500 text-white border-rose-500 font-bold' 
+                          : 'bg-cream-50 text-stone-700 border-stone-200 hover:bg-stone-100'"
+                        class="px-3 py-1.5 rounded-full border text-xs transition-colors">
+                  <span x-text="ribbon"></span>
+                </button>
+              </template>
+            </div>
+          </div>
+
+          <!-- Optional Gift Note Input -->
+          <div class="mt-4">
+            <label class="block text-xs font-bold text-stone-800 mb-1">
+              Complimentary Gift Card Message (Optional):
+            </label>
+            <textarea x-model="quickViewCustomNote" 
+                      placeholder="e.g. Happy Birthday Sarah! With lots of love from Maya 💕" 
+                      rows="2"
+                      class="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500 text-stone-800 placeholder-stone-400"></textarea>
+          </div>
+
+          <!-- Quantity & Action -->
+          <div class="mt-5 pt-3 border-t border-stone-100 flex items-center gap-3">
+            <div class="flex items-center border border-stone-200 rounded-full bg-cream-50 p-1">
+              <button @click="quickViewQty = Math.max(1, quickViewQty - 1)" 
+                      class="w-7 h-7 rounded-full bg-white text-stone-600 hover:bg-stone-200 flex items-center justify-center font-bold text-sm">
+                -
+              </button>
+              <span class="w-8 text-center text-xs font-bold text-stone-800" x-text="quickViewQty"></span>
+              <button @click="quickViewQty++" 
+                      class="w-7 h-7 rounded-full bg-white text-stone-600 hover:bg-stone-200 flex items-center justify-center font-bold text-sm">
+                +
+              </button>
+            </div>
+
+            <button @click="addQuickViewToCart()" 
+                    class="flex-grow py-3 px-4 rounded-full bg-terracotta-500 hover:bg-terracotta-600 text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              <span>Add to Inquiry Bag</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ================= INQUIRY CART SLIDE-OVER DRAWER ================= -->
+  <div x-show="isCartOpen" 
+       class="fixed inset-0 z-50 overflow-hidden" 
+       style="display: none;">
+    
+    <!-- Backdrop -->
+    <div x-show="isCartOpen" 
+         x-transition:enter="transition-opacity ease-linear duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition-opacity ease-linear duration-300"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="isCartOpen = false"
+         class="fixed inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+    <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div x-show="isCartOpen" 
+           x-transition:enter="transform transition ease-in-out duration-300"
+           x-transition:enter-start="translate-x-full"
+           x-transition:enter-end="translate-x-0"
+           x-transition:leave="transform transition ease-in-out duration-300"
+           x-transition:leave-start="translate-x-0"
+           x-transition:leave-end="translate-x-full"
+           class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+        
+        <!-- Drawer Header -->
+        <div class="p-4 sm:p-5 border-b border-stone-200 flex items-center justify-between bg-cream-50">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🌸</span>
+            <h3 class="font-display font-bold text-lg text-charcoal-900">Your Inquiry Bag</h3>
+            <span class="text-xs bg-terracotta-100 text-terracotta-700 px-2 py-0.5 rounded-full font-bold" x-text="cartCount"></span>
+          </div>
+          <button @click="isCartOpen = false" class="p-2 rounded-full text-stone-400 hover:text-stone-700">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div class="flex-grow overflow-y-auto p-4 sm:p-5 space-y-4">
+          
+          <template x-if="cart.length === 0">
+            <div class="text-center py-12">
+              <div class="w-16 h-16 rounded-full bg-cream-100 text-stone-400 mx-auto flex items-center justify-center text-3xl mb-3">
+                🛍️
+              </div>
+              <p class="font-bold text-stone-700">Your inquiry bag is empty</p>
+              <p class="text-xs text-stone-500 mt-1 max-w-xs mx-auto">
+                Explore our handmade bouquets, cute miniature kittens, or single stems to add them here!
+              </p>
+              <button @click="isCartOpen = false" class="mt-4 px-5 py-2 rounded-full bg-charcoal-900 text-white text-xs font-bold hover:bg-stone-800">
+                Start Browsing
+              </button>
+            </div>
+          </template>
+
+          <template x-for="(item, index) in cart" :key="item.id + '-' + item.ribbon">
+            <div class="flex gap-3 p-3 rounded-2xl bg-cream-50 border border-stone-200/80 relative">
+              <img :src="item.image" class="w-18 h-18 sm:w-20 sm:h-20 rounded-xl object-cover flex-shrink-0 border border-stone-200">
+              
+              <div class="flex-grow flex flex-col justify-between pr-6">
+                <div>
+                  <h4 class="font-bold text-xs sm:text-sm text-charcoal-900 line-clamp-1" x-text="item.name"></h4>
+                  <span class="inline-block text-[10px] text-terracotta-600 bg-terracotta-50 px-2 py-0.5 rounded-md font-medium mt-0.5" x-text="'Style: ' + item.ribbon"></span>
+                  <p x-show="item.customNote" class="text-[10px] text-stone-500 italic mt-0.5 line-clamp-1" x-text="'Note: ' + item.customNote"></p>
+                </div>
+
+                <div class="flex items-center justify-between mt-2">
+                  <span class="font-display font-bold text-xs sm:text-sm text-charcoal-900">
+                    ₹<span x-text="(item.price * item.qty).toLocaleString('en-IN')"></span>
+                  </span>
+
+                  <!-- Quantity Stepper -->
+                  <div class="flex items-center border border-stone-300 rounded-full bg-white p-0.5">
+                    <button @click="updateCartQty(index, -1)" class="w-5 h-5 rounded-full hover:bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-600">-</button>
+                    <span class="w-6 text-center text-xs font-semibold" x-text="item.qty"></span>
+                    <button @click="updateCartQty(index, 1)" class="w-5 h-5 rounded-full hover:bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-600">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Remove button -->
+              <button @click="removeCartItem(index)" class="absolute top-2.5 right-2.5 text-stone-400 hover:text-rose-500 p-1">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </template>
+
+        </div>
+
+        <!-- Drawer Footer with WhatsApp Action -->
+        <div x-show="cart.length > 0" class="p-4 sm:p-5 border-t border-stone-200 bg-cream-50 space-y-3">
+          
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-stone-500">Estimated Total:</span>
+            <span class="font-display font-bold text-lg text-charcoal-900">
+              ₹<span x-text="cartTotal.toLocaleString('en-IN')"></span>
+            </span>
+          </div>
+
+          <p class="text-[11px] text-stone-500 leading-tight">
+            Orders are confirmed directly with our craft studio via WhatsApp. We will confirm colors, packing, and dispatch date with you!
+          </p>
+
+          <!-- Main WhatsApp Checkout CTA -->
+          <button @click="checkoutViaWhatsApp()" 
+                  class="w-full py-3 px-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Order via WhatsApp</span>
+          </button>
+
+          <!-- Secondary Actions -->
+          <div class="flex items-center gap-2 pt-1">
+            <button @click="copyCartSummary()" 
+                    class="flex-1 py-2 px-3 rounded-full border border-stone-300 hover:bg-white text-stone-700 text-[11px] font-semibold flex items-center justify-center gap-1 transition-colors">
+              <i data-lucide="copy" class="w-3 h-3"></i>
+              <span>Copy Summary</span>
+            </button>
+            <a href="https://www.instagram.com/purr__crafts/" target="_blank"
+               class="flex-1 py-2 px-3 rounded-full border border-pink-200 bg-pink-50 hover:bg-pink-100 text-pink-700 text-[11px] font-semibold flex items-center justify-center gap-1 transition-colors">
+              <i data-lucide="instagram" class="w-3 h-3 text-pink-600"></i>
+              <span>DM on Instagram</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CUSTOM BESPOKE ORDER MODAL ================= -->
+  <div x-show="isCustomOrderOpen" 
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
+       @keydown.escape.window="isCustomOrderOpen = false"
+       style="display: none;">
+    
+    <div @click.away="isCustomOrderOpen = false" 
+         class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-stone-200 relative my-6">
+      
+      <!-- Close button -->
+      <button @click="isCustomOrderOpen = false" 
+              class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-2 text-rose-500 mb-1">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <span class="text-xs font-bold uppercase tracking-wider">Custom Bespoke Creation</span>
+      </div>
+
+      <h3 class="font-display font-bold text-xl sm:text-2xl text-charcoal-900">
+        Design Your Dream Bouquet or Mascot
+      </h3>
+      
+      <p class="text-xs text-stone-500 mt-1 mb-5">
+        Tell us your dream colors, favorite flower types, or custom pet miniatures. We'll twist it to life!
+      </p>
+
+      <form @submit.prevent="submitCustomOrder()" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Your Name *</label>
+          <input type="text" x-model="customOrder.name" required placeholder="e.g. Aisha" 
+                 class="w-full p-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500">
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Phone / WhatsApp or Instagram Handle</label>
+          <input type="text" x-model="customOrder.phoneOrHandle" placeholder="e.g. +91 9876543210 or @username" 
+                 class="w-full p-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-stone-700 mb-1">Type of Craft</label>
+            <select x-model="customOrder.craftType" class="w-full p-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500 bg-white">
+              <option>Custom Bouquet (5-10 Stems)</option>
+              <option>Single Potted Desk Plant</option>
+              <option>Custom Pet Miniature / Keychain</option>
+              <option>Gift Box / Birthday Hamper</option>
+              <option>Graduation / Special Event</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-stone-700 mb-1">Target Budget</label>
+            <select x-model="customOrder.budget" class="w-full p-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500 bg-white">
+              <option>Under ₹500</option>
+              <option>₹500 - ₹1,000</option>
+              <option>₹1,000 - ₹1,800</option>
+              <option>₹1,800+</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Desired Color Theme</label>
+          <input type="text" x-model="customOrder.colorPalette" placeholder="e.g. Pastel pinks & cream, sunflower yellow, lavender & lilac" 
+                 class="w-full p-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500">
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Special Details or Notes</label>
+          <textarea x-model="customOrder.notes" rows="3" placeholder="e.g. Please add 1 tiny ginger cat charm sitting in the bouquet, and ribbon in cream lace..." 
+                    class="w-full p-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500/20 focus:border-terracotta-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" 
+                  class="w-full py-3 px-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Send Request via WhatsApp</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION ================= -->
+  <div x-show="toast.show" 
+       x-transition:enter="transition ease-out duration-300"
+       x-transition:enter-start="opacity-0 translate-y-4"
+       x-transition:enter-end="opacity-100 translate-y-0"
+       x-transition:leave="transition ease-in duration-200"
+       x-transition:leave-start="opacity-100 translate-y-0"
+       x-transition:leave-end="opacity-0 translate-y-4"
+       class="fixed bottom-5 right-5 z-50 bg-charcoal-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs sm:text-sm border border-stone-700"
+       style="display: none;">
+    <span class="text-base">🌸</span>
+    <span x-text="toast.message" class="font-medium"></span>
+  </div>
+
+  <!-- Script to trigger Lucide icon hydration -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
